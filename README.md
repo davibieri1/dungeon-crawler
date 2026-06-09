@@ -12,8 +12,10 @@ O Despertar do Titã
 Há séculos, o reino prosperava sob a proteção das **Profundezas de Ferro**, uma masmorra subterrânea construída por uma civilização antiga para confinar o **Titã de Ferro** — uma colossal máquina de guerra alimentada por magia rúnica instável. 
 Com o passar das eras, a civilização ruiu, as chaves das runas foram perdidas e o Titã adormeceu... até agora. 
 Recentemente, a terra começou a tremer. As engrenagens ancestrais voltaram a girar, fumaça negra escapa pelas fendas do solo e criaturas mecânicas e corrompidas começaram a infestar os vilarejos. O Titã está despertando, e se ele alcançar a superfície, será o fim de tudo.
+
 🛡️ A Sua Missão
 Você é o último sobrevivente de uma ordem de guardiões. Sua missão é descer os andares da masmorra, coletar os fragmentos rúnicos necessários para enfraquecer a criatura e destruir o **Titã de Ferro** em seu núcleo de fundição, antes que as engrenagens do apocalipse terminem de girar.
+
 #🎯 Objetivo
 Explorar os andares da masmorra;
 Resolver os desafios de cada fase;
