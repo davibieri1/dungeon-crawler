@@ -33,7 +33,7 @@ Derrotar o Boss Final para concluir a aventura.
 | **D** | Mover para direita |
 | **EU** | Interagir |
 | **O** | Atacar |
-⚔️ Armas
+# ⚔️ Armas
 Espada
 Ataque em área à frente do jogador.
 
