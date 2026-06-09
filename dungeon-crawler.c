@@ -96,15 +96,15 @@ int monstro_coluna[MAX_MONSTROS];
 int monstro_tipo[MAX_MONSTROS];
 int monstro_vivo[MAX_MONSTROS];
 int num_monstros = 0;
-
+//carregar monstros, inicializador por andar 
 void carregar_monstros(int andar) {
     num_monstros = 0;
     int i;
-    
+    //zerar todos os monstros, limpeza de segurança
     for(i = 0; i < MAX_MONSTROS; i++) {
         monstro_vivo[i] = 0;
     }
-
+ //dados dos monstros
     if (andar == 1) {
         monstro_linha[0] = 3; monstro_coluna[0] = 7; monstro_tipo[0] = 1; monstro_vivo[0] = 1;
         monstro_linha[1] = 5; monstro_coluna[1] = 3; monstro_tipo[1] = 1; monstro_vivo[1] = 1;
@@ -125,7 +125,7 @@ void carregar_monstros(int andar) {
 
 int atacar_monstros(int alvo_linha, int alvo_coluna) {
     int m;
- 
+ //atacar boss
     if (boss_vivo && boss_linha == alvo_linha && boss_coluna == alvo_coluna) {
         boss_vida--;
         if (boss_vida <= 0) {
@@ -134,7 +134,7 @@ int atacar_monstros(int alvo_linha, int alvo_coluna) {
         }
         return 0;
     }
-    
+    //percorre os monstros do andar e checa se ta vivo no ponto de ataque
     for (m = 0; m < num_monstros; m++) {
         if (monstro_vivo[m] && monstro_linha[m] == alvo_linha && monstro_coluna[m] == alvo_coluna) {
             monstro_vivo[m] = 0; 
@@ -147,9 +147,9 @@ int atacar_monstros(int alvo_linha, int alvo_coluna) {
 void carregar_andar(int andar) {
     int i, j;
     
-    if (andar == 0)      { altura = 10; largura = 10; } 
-    else if (andar == 1) { altura = 10; largura = 10; } 
-    else if (andar == 2) { altura = 15; largura = 15; } 
+    if (andar == 0)      { altura = 10; largura = 10; } //andar 1
+    else if (andar == 1) { altura = 10; largura = 10; } //andar 2
+    else if (andar == 2) { altura = 15; largura = 15; } //andar 3
     else                 { altura = 25; largura = 25; } 
 
     for (i = 0; i < altura; i++) {
@@ -160,7 +160,7 @@ void carregar_andar(int andar) {
             else                 terreno[i][j] = MAPA_ANDAR3[i][j];
         }
     }
-
+//reset da posição do jogador no novo andar
     jogador_linha = 1;                                 
     jogador_coluna = 1;                                
     jogador_dir = '>';                                 
@@ -173,22 +173,22 @@ void desenhar_mapa(int andar) {
     system("cls");
     int i, j, m;
     char caractere_impressao;
-
+//sobreposições no mapa
     for (i = 0; i < altura; i++) {
         for (j = 0; j < largura; j++) {
             caractere_impressao = terreno[i][j];
-
+           //posição do jogador
             if (i == jogador_linha && j == jogador_coluna) {
                 caractere_impressao = jogador_dir;
             }
-            
+            //posição do monstro comum
             for (m = 0; m < num_monstros; m++) {
                 if (monstro_vivo[m] && monstro_linha[m] == i && monstro_coluna[m] == j) {
                     if (monstro_tipo[m] == 1) caractere_impressao = 'X';
                     else                      caractere_impressao = 'Y';
                 }
             }
-          
+          //posição do boss, andar 3
             if (andar == 3 && boss_vivo && i == boss_linha && j == boss_coluna) {
                 caractere_impressao = 'Z'; 
             }
@@ -197,7 +197,7 @@ void desenhar_mapa(int andar) {
         }
         printf("\n");
     }
-    
+    //interações, arma e chave
     printf("\nVidas: %d | Chave: %s | Arma: ", vidas, tem_chave ? "Sim" : "Nao");
     if (arma == 1)      printf("Espada\n");
     else if (arma == 2) printf("Arco\n");
@@ -208,24 +208,25 @@ void desenhar_mapa(int andar) {
         printf("CHEFAO: Gorgoroth, o Tita de Ferro (Z) | VIDA: %d/3\n", boss_vida);
     }
 }
-
+//atualiza a posição visual
 int mover(int dx, int dy, char dir) {
     jogador_dir = dir;
+    //cacula nova posição, ao se locomover
     int novo_linha = jogador_linha + dy;
     int novo_coluna = jogador_coluna + dx;
-
+    //checa limites
     if (novo_linha < 0 || novo_linha >= altura || novo_coluna < 0 || novo_coluna >= largura) {
         return 0;
     }
 
     char celula_destino = terreno[novo_linha][novo_coluna];
-
+    //checa obstáculos, senão tem obstaculo na pos, move o jogador
     if (celula_destino != '*' && celula_destino != 'N' && celula_destino != 'L' &&
         celula_destino != 'k' && celula_destino != 'D' && celula_destino != 'O') {
         
         jogador_coluna = novo_coluna;
         jogador_linha = novo_linha;
-
+       //espinho, retorna a 1, perde vida
         if (terreno[jogador_linha][jogador_coluna] == '#') {  
             return 1; 
         }
@@ -234,6 +235,7 @@ int mover(int dx, int dy, char dir) {
 }
 
 int interagir(void) { 
+	//calcula o que está a frente da poição do jogador
     int frente_linha = jogador_linha;
     int frente_coluna = jogador_coluna;
 
@@ -241,9 +243,9 @@ int interagir(void) {
     else if (jogador_dir == 'v') frente_linha++;
     else if (jogador_dir == '<') frente_coluna--;
     else if (jogador_dir == '>') frente_coluna++;
-
+//le o que tem na frente
     char alvo = terreno[frente_linha][frente_coluna];
-
+//interação com arma, escolha da arma
     if (alvo == 'N') {
         int escolha = 0;
         while (escolha < 1 || escolha > 3) { 
@@ -253,14 +255,17 @@ int interagir(void) {
         arma = escolha; 
         return 0;       
     }
+    //avança andar
     else if (alvo == 'L') {
         return 1; 
     }
+    
     else if (alvo == '@') {   
         terreno[frente_linha][frente_coluna] = ' ';   
         tem_chave = 1;
         return 0;
     }
+    
     else if (alvo == 'D') {   
         if (tem_chave == 1) {
             terreno[frente_linha][frente_coluna] = ' ';   
@@ -277,7 +282,7 @@ int interagir(void) {
 
 int atacar(void) {
     int dl, dc; 
-
+//funcionamento da espada, posiçoes do ataque
     if (arma == 1) {   
         for (dl = 1; dl <= 2; dl++) {          
             for (dc = -1; dc <= 1; dc++) {     
@@ -292,6 +297,7 @@ int atacar(void) {
             }
         }
     }   
+    //funcionamento do arco e flecha
     else if (arma == 2) {   
         for (dl = 1; dl <= 4; dl++) {
             int alvo_linha = jogador_linha, alvo_coluna = jogador_coluna;  
@@ -304,6 +310,7 @@ int atacar(void) {
             if (atacar_monstros(alvo_linha, alvo_coluna) == 1) return 1;   
         }
     }
+    //cajado, ataca 8 celulas ao redor
     else if (arma == 3) {   
         for (dl = -1; dl <= 1; dl++) {
             for (dc = -1; dc <= 1; dc++) {
@@ -328,14 +335,15 @@ int mover_monstros(int andar) {
 
         int nova_linha  = monstro_linha[i];
         int nova_coluna = monstro_coluna[i];
-
+        //monstro tipo 1, aleatoriedade na sua movimentação
         if (monstro_tipo[i] == 1) {            
-            int dir = rand() % 4;
+            int dir = rand() % 4; //0,1,2 ou 3
             if      (dir == 0) nova_linha--;
             else if (dir == 1) nova_linha++;
             else if (dir == 2) nova_coluna--;
             else               nova_coluna++;
         }
+       //tipo 2, persegue, se a diferença é maior que 0, avanca até a pocição
         else if (monstro_tipo[i] == 2) {       
             int dl_real = jogador_linha  - monstro_linha[i];
             int dc_real = jogador_coluna - monstro_coluna[i];
@@ -349,13 +357,13 @@ int mover_monstros(int andar) {
 
         char destino = terreno[nova_linha][nova_coluna];
         if (destino == '*' || destino == 'N' || destino == 'L' || destino == 'k' || destino == 'D') continue;
-
+        //jogador toma dano do monstro
         if (nova_linha == jogador_linha && nova_coluna == jogador_coluna) return 1;   
-
+        //move pra nova posição
         monstro_linha[i]  = nova_linha;
         monstro_coluna[i] = nova_coluna;
     }
-
+ //movimentação do boss
     if (andar == 3 && boss_vivo) {
         if (jogador_linha >= 19) { 
             int dl = jogador_linha  - boss_linha;
@@ -363,13 +371,13 @@ int mover_monstros(int andar) {
 
             int n_boss_l = boss_linha;
             int n_boss_c = boss_coluna;
-
+            //move em direção ao jogador
             if (abs(dl) >= abs(dc)) {
                 if (dl > 0) n_boss_l++; else n_boss_l--;
             } else {
                 if (dc > 0) n_boss_c++; else n_boss_c--;
             }
-
+           //obstaculos, para
             char dest_boss = terreno[n_boss_l][n_boss_c];
             if (dest_boss != '*' && dest_boss != 'D') {
                 boss_linha = n_boss_l;
@@ -451,7 +459,7 @@ void jogar(void) {
     }
 
     if (andar > 3) {
-        printf("\nPARABENS! Gorgoroth, o Tita de Ferro foi derrotado e voce venceu o jogo!\n");
+        printf("\nPARABENS! O Tita de Ferro foi derrotado e voce venceu o jogo!\n");
     }
 }
 
