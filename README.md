@@ -16,7 +16,7 @@ Recentemente, a terra começou a tremer. As engrenagens ancestrais voltaram a gi
 🛡️ A Sua Missão
 Você é o último sobrevivente de uma ordem de guardiões. Sua missão é descer os andares da masmorra, coletar os fragmentos rúnicos necessários para enfraquecer a criatura e destruir o **Titã de Ferro** em seu núcleo de fundição, antes que as engrenagens do apocalipse terminem de girar.
 
-#🎯 Objetivo
+# 🎯 Objetivo
 Explorar os andares da masmorra;
 Resolver os desafios de cada fase;
 Encontrar chaves e abrir portas;
