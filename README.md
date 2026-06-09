@@ -30,3 +30,47 @@ Derrotar o Boss Final para concluir a aventura.
 | **D** | Mover para direita |
 | **EU** | Interagir |
 | **O** | Atacar |
+⚔️ Armas
+Espada
+Ataque em área à frente do jogador.
+
+Arco e Flecha
+Ataque em linha reta de longo alcance.
+
+Cajado
+Ataque em todas as células adjacentes ao jogador.
+# 🔶 legenda dos simbolos
+| Símbolo | Significado |
+| :---: | :--- |
+| `<` | Jogador olhando para a esquerda |
+| `^` | Jogador olhando para cima |
+| `>` | Jogador olhando para direita |
+| `v` | Jogador olhando para baixo |
+| `*` | Parede |
+| `#` | Espinho |
+| `k` | Caixa destrutível |
+| `0` | † |
+| `D` | Porta fechada |
+| `@` | Chave |
+| `=` | Porta |
+| `L` | Escada |
+| `X` | Monstro Tipo 1 |
+| `Y` | Monstro Tipo 2 |
+| `Z` | Chefe Final |
+#❤️ Sistema de Vida
+O jogador possui 3 vidas.
+
+Ao ser atingido por um monstro ou passar por um espinho, perde uma vida e reinicia a fase atual.
+
+Ao perder todas as vidas, o jogo retorna ao menu principal através da tela de Game Over.
+#🛠️ Tecnologias Utilizadas
+Linguagem C
+Claude IA
+GPT IA
+# Uso de Inteligência Artificial
+Ferramentas de IA generativa foram utilizadas como apoio para:
+
+- Revisão de conceitos da linguagem C
+- esclarecimentos de dúvidas de lógica de programação;
+
+
