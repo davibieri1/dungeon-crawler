@@ -59,7 +59,7 @@ Ataque em todas as células adjacentes ao jogador.
 | `X` | Monstro Tipo 1 |
 | `Y` | Monstro Tipo 2 |
 | `Z` | Chefe Final |
-#❤️ Sistema de Vida
+# ❤️ Sistema de Vida
 O jogador possui 3 vidas.
 
 Ao ser atingido por um monstro ou passar por um espinho, perde uma vida e reinicia a fase atual.
